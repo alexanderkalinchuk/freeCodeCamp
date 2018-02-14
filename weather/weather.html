@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+	<head>
+
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	    <meta name="description" content="">
+	    <meta name="author" content="">
+
+	    <title>freeCodeCamp | QuotesMechine by Alex.K.Develop</title>
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+		<script src="https://darkskyapp.github.io/skycons/skycons.js"></script>
+
+	</head>
+
+	<style>
+
+
+	</style>
+
+	<body>
+		<div class="container">
+		  <div class="row">
+		    <div class="col-lg-4">
+		      <div class="header">
+		        <h1 class="header__1">My project for FreeCodeCamp</h1>
+		        <h2 class="header__2">Weather App</h2>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+		<div class="container">
+		  <div class="row">
+		    <div class="col-lg-6">
+		      <div class="weather">
+		        <div class="weather__city"></div>
+		        <div class="weather__temparature"></div>
+		        <div class="weather__discribe"></div>
+		        <canvas id="icon1" width="128" height="128"></canvas>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+		<div class="container">
+		  <div class="row">
+		    <div class="col-lg-2">
+		      <div class="animation"></div>
+		    </div>
+		  </div>
+		</div>
+	</body>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+		  
+		  
+		  if(navigator.geolocation){
+		    navigator.geolocation.getCurrentPosition(function(position){
+		      var latitude = position.coords.latitude;
+		      var longitude = position.coords.longitude;
+		      
+		      var apiUrl = "https://api.darksky.net/forecast/";
+		      var apiKey = "a42eee0b758cc04a244ef0ba6633de23/";
+		      var lang = "&lang=en";
+		      var unit = "?units=si";
+		      $.getJSON(apiUrl + apiKey + latitude +","+  longitude + unit + lang + "&callback=?", function(json){
+		       
+		        var timezone = json.timezone;
+		        var temperature = json.currently.temperature;
+		        var summary = json.currently.summary;
+		        var icon = json.currently.icon;
+		         
+		      $(".weather__city").html(timezone);
+		      $(".weather__temparature").html(temperature);
+		      $(".weather__discribe").html(summary); 
+		        
+		        var skycons = new Skycons({"color": "pink"});
+		        //skycons.add("icon1", Skycons.icon);
+		        skycons.add(document.getElementById("icon1"), icon);
+		        skycons.play();
+		      });  
+		    });
+		    
+		  };
+		   
+		});
+	</script>
+
+
+
+</html>
