@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+	<head>
+
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	    <meta name="description" content="">
+	    <meta name="author" content="">
+
+	    <title>freeCodeCamp | wikiQuery by Alex.K.Develop</title>
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+	</head>
+
+	<style>
+
+		.input-link{
+		  width: 30%;
+		  padding-left: 12px;
+		  outline: none;
+		  border-radius: 10px;
+		}
+
+
+
+		.random-page{
+		  color: #ff3838;
+		  font-size: 18px;
+		  font-family: Tahoma;
+		  color: "red";
+		}
+
+		.random-page:hover{
+		  color: #ff3838;
+		  text-decoration: none;
+		}
+
+		.wiki_result__post{
+		  margin: 15px 0;
+		  padding: 10px 10px;
+		  background-color: #e8d0d0;
+		}
+
+		.wiki_result__post:hover{
+		  background-color: #ffbcbc;
+		}
+
+		.wiki_result__header{
+		  font-size: 18px;
+		  font-weight: bold;
+		}
+
+		.wiki_result__discribe{
+		  font-size: 16px;
+		  font-style: italic;
+		}
+
+		.post{
+		  color: #3d3d3d;
+		}
+
+		.post:hover{
+		  color: #3d3d3d;
+		  text-decoration: none;
+		}
+
+	</style>
+
+	<body>
+		<p><a class="random-page"href="https://en.wikipedia.org/wiki/Special:Random" target="_blank">Click here for a random article</a></p>
+
+		<div class="row">
+		  <div class="col-lg-3">
+		    <div class="input-group mb-3">
+		      <input type="text" class="form-control input-link" placeholder="Wiki search..." aria-label="Wiki search..." aria-describedby="basic-addon2">
+		      <div class="input-group-append">
+		        <button class="btn btn-outline-secondary" type="button">Search</button>
+		      </div>
+		    </div>
+		 </div>
+		</div>
+
+
+		<div class="row">
+		  <div class="col-lg-10">
+		    <div class="wiki_result">
+		    </div>
+		  </div>
+		</div>
+
+	</body>
+
+	<script type="text/javascript">
+
+		$(document).ready(function(){
+		  $(".btn").on("click", function(){
+		    var inputUrl = $(".input-link").val();
+		    var lang = "en";
+		//     var langBool = function(inputUrl){
+		//       return /[а-я]/i.test(inputUrl);
+		//     };
+		    
+		//     if(langBool == true){
+		//       lang = "ru";      
+		//     }else{
+		//       lang = "en";
+		//     }
+		    $.getJSON("https://"+lang+".wikipedia.org/w/api.php?action=opensearch&format=json&origin=*&search="+inputUrl, function(json){
+		      
+		    json.splice(0,1); //удалим ненужный элемент для удобства 
+		      
+		    var list = ""; 
+		    for(let i=0; i<json[0].length;i++){
+		      list += '<a class="post" href="'+json[2][i]+'"><div class="wiki_result__post"><div class="wiki_result__header">'+json[0][i]+"</div>"+'<div class="wiki_result__discribe">'+json[1][i]+"</div></div></a>"
+		    }
+		      
+		    $(".wiki_result").html(list);  
+		    });
+		  });
+		});
+				
+	</script>
+
+
+
+</html>
