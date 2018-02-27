@@ -9,7 +9,7 @@
 	    <meta name="description" content="">
 	    <meta name="author" content="">
 
-	    <title>freeCodeCamp | QuotesMechine by Alex.K.Develop</title>
+	    <title>freeCodeCamp | weatherApp by Alex.K.Develop</title>
 
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -22,14 +22,47 @@
 	</head>
 
 	<style>
+		body {
+		  font-family: "Roboto";
+		  color: #fff;
+		  background-color: #161616   
+		}
 
+		.header__1 {
+		  font-size: 2.8em;
+		}
+
+		.header__2 {
+		  font-size: 2.2em;
+		  margin-top: 10px;
+		  margin-bottom: 20px;
+		}
+
+		.weather__city {
+		  font-size: 2.6em;
+		}
+
+		.weather__temperature {
+		  cursor: pointer;
+		  color: "red";
+		  font-size: 1.8em;
+		}
+		.weather__temperature:hover {
+		  color: #005096;
+		}
+
+		.weather__discribe {
+		  margin-top: 15px;
+		  margin-bottom: 10px;
+		  font-size: 2.0em;
+		}
 
 	</style>
 
 	<body>
 		<div class="container">
 		  <div class="row">
-		    <div class="col-lg-4">
+		    <div class="col-lg-12 text-center">
 		      <div class="header">
 		        <h1 class="header__1">My project for FreeCodeCamp</h1>
 		        <h2 class="header__2">Weather App</h2>
@@ -40,10 +73,10 @@
 
 		<div class="container">
 		  <div class="row">
-		    <div class="col-lg-6">
+		    <div class="col-lg-12 text-center">
 		      <div class="weather">
 		        <div class="weather__city"></div>
-		        <div class="weather__temparature"></div>
+		        <div class="weather__temperature"></div>
 		        <div class="weather__discribe"></div>
 		        <canvas id="icon1" width="128" height="128"></canvas>
 		      </div>
@@ -61,6 +94,7 @@
 	</body>
 
 	<script type="text/javascript">
+
 		$(document).ready(function(){
 		  
 		  
@@ -81,7 +115,22 @@
 		        var icon = json.currently.icon;
 		         
 		      $(".weather__city").html(timezone);
-		      $(".weather__temparature").html(temperature);
+		        
+		 var temperatureFormat = "Cels";  
+		        $(".weather__temperature").click(function(){
+		          if(temperatureFormat == "Cels"){
+		            temperatureFormat = "Fahr";
+		          $(".weather__temperature").html(temperature*9/5+32 + " F" + String.fromCharCode(176));
+		          }else{
+		            temperatureFormat = "Cels";
+		          $(".weather__temperature").html(temperature + " C" + String.fromCharCode(176));            
+		          }
+		    
+		        });
+		      
+		        
+		      $(".weather__temperature").html(temperature + " C" + String.fromCharCode(176));
+		        
 		      $(".weather__discribe").html(summary); 
 		        
 		        var skycons = new Skycons({"color": "pink"});
@@ -94,6 +143,7 @@
 		  };
 		   
 		});
+		
 	</script>
 
 
